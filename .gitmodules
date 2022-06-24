@@ -1,0 +1,6 @@
+[submodule "third-party/spdlog"]
+	path = third-party/spdlog
+	url = git@github.com:Derek0120/spdlog.git
+[submodule "third-party/format"]
+	path = third-party/format
+	url = git@github.com:derekzhengc/format.git

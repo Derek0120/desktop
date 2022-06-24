@@ -27,9 +27,12 @@ target_sources(${PROJECT_NAME}
 target_include_directories(${PROJECT_NAME}
 PRIVATE
  ${CMAKE_SOURCE_DIR}
+ ${CMAKE_SOURCE_DIR}/third-party/spdlog/include
  )
 
 target_compile_definitions(${PROJECT_NAME} 
 	PRIVATE
 	COMMON_LIBRARY
 )
+
+target_link_libraries(${PROJECT_NAME} spdlog)

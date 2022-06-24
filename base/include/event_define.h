@@ -9,7 +9,7 @@ namespace base
         AppToExit = 2,
         ModuleLoaded = 3,
         ModuleUnloaded = 4,
-        
 
-    }
+
+    };
 }

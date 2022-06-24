@@ -1,6 +1,7 @@
 #pragma once
 #include "base/include/base_global.h"
-
+#include "common/include/logger.h"
+#include <memory>
 namespace common
 {
     class IEventDispatcher;
@@ -24,6 +25,9 @@ public:
         used for gui thread 
     */
     virtual common::ITaskScheduler* mainThreadScheduler() = 0;
+
+    // logger
+    virtual std::shared_ptr<ILogger> defaultLogger() = 0;
 
 };
 }
