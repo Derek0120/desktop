@@ -8,7 +8,7 @@ namespace common{
 class COMMON_EXPORT ITaskScheduler
 {
 public:
-	struct Options {
+	struct Option {
 		//if 0 or 1 will create one thread, otherwise create thread_pool
 		std::uint32_t thread_count;
 		//task thread names if names.size() < thread_count
@@ -33,7 +33,7 @@ public:
 };
 
 namespace task_builder {
-	COMMON_EXPORT std::shared_ptr<ITaskScheduler> createTaskScheduler(const ITaskScheduler::Options& options);
+	COMMON_EXPORT std::shared_ptr<ITaskScheduler> createTaskScheduler(const ITaskScheduler::Option& option);
 }
 
 }

@@ -4,6 +4,8 @@
 #include <memory>
 #include "common/include/format.h"
 
+namespace common
+{
 enum Level{
     Trace = 0,
     Debug = 1,
@@ -16,6 +18,13 @@ enum Level{
 class COMMON_EXPORT ILogger
 {
 public:
+struct  Option{
+        int level;
+        std::string name;
+        std::string file_name;
+        std::size_t max_size;
+        std::size_t max_files;
+    };
     virtual ~ILogger();
 
     virtual void info(std::string_view view) = 0;
@@ -28,13 +37,8 @@ public:
 };
 
 namespace logger_builder{
-    struct  Option{
-        int level;
-        std::string name;
-        std::string file_name;
-        std::size_t max_size;
-        std::size_t max_files;
-    };
+    
 
-    COMMON_EXPORT std::shared_ptr<ILogger> create_logger(const Option& option);
+    COMMON_EXPORT std::shared_ptr<ILogger> createLogger(const ILogger::Option& option);
+}
 }

@@ -2,13 +2,15 @@
 #include "spdlog/sinks/rotating_file_sink.h"
 #include "spdlog/spdlog.h"
 #include "spdlog/logger.h"
+namespace common
+{
 ILogger::~ILogger() = default;
 
 
 class LoggerImpl : public ILogger
 {
 public:
-    explicit LoggerImpl(const logger_builder::Option& option){
+    explicit LoggerImpl(const Option& option){
        logger_= spdlog::create<spdlog::sinks::rotating_file_sink_mt>(option.name, option.file_name, option.max_size, option.max_files);
        logger_->set_level((spdlog::level::level_enum)(option.level));
     }
@@ -32,7 +34,8 @@ private:
     std::shared_ptr<spdlog::logger> logger_;
 };
 
- std::shared_ptr<ILogger> logger_builder::create_logger(const Option& option){
+ std::shared_ptr<ILogger> logger_builder::createLogger(const ILogger::Option& option){
      auto logger = std::make_shared<LoggerImpl>(option);
      return logger;
  }
+}

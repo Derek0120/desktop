@@ -1,18 +1,19 @@
 cmake_minimum_required (VERSION 3.14.0)
 
 set(BASE_VERSION "1.0.0")
-
-project("base" VERSION ${BASE_VERSION})
+set(DESKTOP_VERSION "1.0.0")
+project("desktop" VERSION ${DESKTOP_VERSION})
+project("desktop" VERSION ${BASE_VERSION})
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Core REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core REQUIRED)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Widgets REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Widgets REQUIRED)
 
 
-add_library(${PROJECT_NAME} SHARED)
+add_executable(${PROJECT_NAME})
 
 #target_link_libraries(${PROJECT_NAME} INTERFACE SQLite::SQLite3)
 
@@ -37,9 +38,5 @@ PRIVATE
  ${CMAKE_SOURCE_DIR}
  )
 
-target_compile_definitions(${PROJECT_NAME} 
-	PRIVATE
-	BASE_LIBRARY
-)
 
-target_link_libraries(${PROJECT_NAME} common Qt${QT_VERSION_MAJOR}::Core)
+target_link_libraries(${PROJECT_NAME} common base Qt${QT_VERSION_MAJOR}::Widgets )

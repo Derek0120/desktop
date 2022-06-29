@@ -3,10 +3,12 @@
 #include "common/include/concurrent/Thread.h"
 #include <atomic>
 #include <exception>
+#include <thread>
+#include <mutex>
 namespace common{
 struct Impl {
 public:
-	using Container = typename Priority_Queue<Task, std::mutex>;
+	using Container =  Priority_Queue<Task, std::mutex>;
 	void run(Thread* pThread) {
 		Task task;
 		while (!pThread->stopped()){
@@ -66,7 +68,7 @@ public:
 class TaskScheduler : public ITaskScheduler
 {
 public:
-	explicit TaskScheduler(const Options& options);
+	explicit TaskScheduler(const Option& options);
 	~TaskScheduler();
 
 	void postTask(const Task& task) override;
@@ -81,7 +83,7 @@ private:
 	Impl* impl_;
 };
 
-TaskScheduler::TaskScheduler(const Options& options)
+TaskScheduler::TaskScheduler(const Option& options)
 	:impl_(new Impl){
 	impl_->msSleep_ = options.ms;
 	impl_->executeOnDestory_ = options.isExecuteOnDestory;
@@ -141,8 +143,8 @@ bool TaskScheduler::stopped() const{
 ITaskScheduler::~ITaskScheduler() = default;
 
 
-std::shared_ptr<ITaskScheduler> task_builder::createTaskScheduler(const ITaskScheduler::Options& options) {
-	return std::make_shared<TaskScheduler>(options);
+std::shared_ptr<ITaskScheduler> task_builder::createTaskScheduler(const ITaskScheduler::Option& option) {
+	return std::make_shared<TaskScheduler>(option);
 }
 
 }
